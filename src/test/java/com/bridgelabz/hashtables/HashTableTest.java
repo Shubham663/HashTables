@@ -1,6 +1,8 @@
 package com.bridgelabz.hashtables;
 
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
@@ -27,7 +29,8 @@ public class HashTableTest
      */
     @Test
     public void findFrequencyTest_Correct(){
-        assertTrue(hashTable.hashtable.search("To"));
+		int val = (  Math.abs("to".hashCode())  ) % 10;
+        assertNotNull(hashTable.hashtable[val]);
     }
     
     /**
@@ -35,6 +38,7 @@ public class HashTableTest
      */
     @Test
     public void findFrequencyTest_InCorrect(){
-        assertFalse(hashTable.hashtable.search("nothing"));
+    	int val = (  Math.abs("noto".hashCode())  ) % 10;
+        assertNull(hashTable.hashtable[val]);
     }
 }
