@@ -9,36 +9,42 @@ import com.bridgelabz.hashtables.LinkedList.MyMapNode;
  *
  */
 public class HashTable {
-	LinkedList hashtable;
+	LinkedList []hashtable;
+	
+	
+	/**
+	 * Allocates memory for indexing the linkedlists
+	 */
+	public HashTable() {
+		hashtable = new LinkedList[10];
+	}
 
 	/**
 	 * @return the hashtable
 	 */
-	public LinkedList getHashtable() {
+	public LinkedList[] getHashtable() {
 		return hashtable;
-	}
-
-	/**
-	 * 
-	 */
-	public HashTable() {
-		hashtable = new LinkedList();
 	}
 
 	/**
 	 * The method for entrying a key/value pair in hashtable
 	 */
 	public <T extends Comparable<T>, V> void add(T key) {
-		MyMapNode myMapNode = hashtable.getHead();
-		if (hashtable.search(key)) {
-			while (!((String) myMapNode.getKey()).equalsIgnoreCase(((String) key))) {
+		String toAdd = ((String) key).toLowerCase();
+		int val = Math.abs(toAdd.hashCode());
+		int index = val%10;
+		if(hashtable[index] == null)
+			hashtable[index] = new LinkedList();
+		MyMapNode myMapNode = hashtable[index].getHead();
+		if (hashtable[index].search(toAdd)) {
+			while (!((String) myMapNode.getKey()).equalsIgnoreCase(toAdd)) {
 				myMapNode = myMapNode.getNext();
 			}
 			int value = (int) myMapNode.getValue();
 			value++;
 			myMapNode.setValue(value);
 		} else {
-			hashtable.addNodeAtLast(key, 1);
+			hashtable[index].addNodeAtLast(toAdd, 1);
 		}
 	}
 
@@ -51,7 +57,8 @@ public class HashTable {
 		for (String word : words) {
 			hashTable.add(word);
 		}
-		hashTable.hashtable.printList();
+		for( LinkedList linkedList : hashTable.hashtable)
+			linkedList.printList();
 
 	}
 }

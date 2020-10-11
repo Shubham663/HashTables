@@ -115,6 +115,7 @@ public class LinkedList {
 			System.out.println( t.key + " -> "+ t.value);
 			t = t.next;
 		}
+		System.out.println();
 	}
 
 	/**
