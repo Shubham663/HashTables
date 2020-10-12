@@ -11,34 +11,37 @@ import org.junit.Test;
 /**
  * Unit test for simple App.
  */
-public class HashTableTest 
-{
+public class HashTableTest {
 	HashTable hashTable;
-	
+
 	@Before
 	public void initialize() {
 		hashTable = new HashTable();
-		String input = new String("To be or not to be");
-		String []words = input.split(" ");
-		for(String word : words)
+		String input = new String("Paranoids are not paranoid because they are paranoid but"
+				+ " because they keep putting themselves deliberately into paranoid "
+				+ "avoidable situations");
+		String[] words = input.split(" ");
+		for (String word : words)
 			hashTable.add(word);
 	}
-    
-    /**
-     * Checks that a particular value is present inside hashtable
-     */
-    @Test
-    public void findFrequencyTest_Correct(){
-		int val = (  Math.abs("to".hashCode())  ) % 10;
-        assertNotNull(hashTable.hashtable[val]);
-    }
-    
-    /**
-     * Checks that a particular value is not present inside hashtable
-     */
-    @Test
-    public void findFrequencyTest_InCorrect(){
-    	int val = (  Math.abs("noto".hashCode())  ) % 10;
-        assertNull(hashTable.hashtable[val]);
-    }
+
+	/**
+	 * Checks for deletion of word
+	 */
+	@Test
+	public void deleteKeyTest_Correct() {
+		hashTable.delete("avoidable");
+		int index = (Math.abs("avoidable".hashCode())) % 10;
+		assertFalse(hashTable.hashtable[index].search("avoidable"));
+	}
+
+	/**
+	 * Checks for correct non deletion of word
+	 */
+	@Test
+	public void deleteKeyTest_InCorrect() {
+		hashTable.delete("to");
+		int index = (Math.abs("avoidable".hashCode())) % 10;
+		assertTrue(hashTable.hashtable[index].search("avoidable"));
+	}
 }

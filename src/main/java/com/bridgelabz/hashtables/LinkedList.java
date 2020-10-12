@@ -110,7 +110,7 @@ public class LinkedList {
 	 */
 	public <T> void printList() {
 		MyMapNode t = head;
-		System.out.println("The map entries are as follows");
+//		System.out.println("The map entries are as follows");
 		while (t != null) {
 			System.out.println( t.key + " -> "+ t.value);
 			t = t.next;
