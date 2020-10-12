@@ -8,6 +8,8 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.bridgelabz.hashtables.LinkedList.MyMapNode;
+
 /**
  * Unit test for simple App.
  */
@@ -18,7 +20,9 @@ public class HashTableTest
 	@Before
 	public void initialize() {
 		hashTable = new HashTable();
-		String input = new String("To be or not to be");
+		String input = new String("Paranoids are not paranoid because they are paranoid"
+				+ " but because they keep putting themselves deliberately into paranoid"
+				+ " avoidable situations");
 		String []words = input.split(" ");
 		for(String word : words)
 			hashTable.add(word);
@@ -29,7 +33,7 @@ public class HashTableTest
      */
     @Test
     public void findFrequencyTest_Correct(){
-		int val = (  Math.abs("to".hashCode())  ) % 10;
+		int val = (  Math.abs("into".hashCode())  ) % 10;
         assertNotNull(hashTable.hashtable[val]);
     }
     
@@ -38,7 +42,11 @@ public class HashTableTest
      */
     @Test
     public void findFrequencyTest_InCorrect(){
-    	int val = (  Math.abs("noto".hashCode())  ) % 10;
-        assertNull(hashTable.hashtable[val]);
+    	int index = (  Math.abs("notonoto".hashCode())  ) % 10;
+    	LinkedList linkedList = hashTable.hashtable[index];
+    	MyMapNode myMapNode = linkedList.getHead();
+    	while(myMapNode != null && myMapNode.getKey().compareTo("notonoto") != 0)
+    		myMapNode = myMapNode.getNext();
+    	assertNull(myMapNode);
     }
 }
